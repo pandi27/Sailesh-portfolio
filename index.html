@@ -1,0 +1,387 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --sp-ink: var(--color-text-primary);
+    --sp-muted: var(--color-text-secondary);
+    --sp-hint: var(--color-text-tertiary);
+    --sp-surface: var(--color-background-primary);
+    --sp-lift: var(--color-background-secondary);
+    --sp-rule: var(--color-border-tertiary);
+    --sp-rule-em: var(--color-border-primary);
+    --garamond: 'EB Garamond', Georgia, serif;
+    --inter: 'Inter', var(--font-sans), sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .sp-root { font-family: var(--inter); color: var(--sp-ink); max-width: 780px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .sp-nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 0 36px; border-bottom: 0.5px solid var(--sp-rule); margin-bottom: 64px; }
+  .sp-nav-name { font-family: var(--garamond); font-size: 18px; font-weight: 400; letter-spacing: 0.01em; }
+  .sp-nav-links { display: flex; gap: 24px; }
+  .sp-nav-links a { font-size: 13px; color: var(--sp-muted); text-decoration: none; letter-spacing: 0.03em; }
+  .sp-nav-links a:hover { color: var(--sp-ink); }
+
+  .sp-hero { margin-bottom: 64px; }
+  .sp-hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sp-hint); margin-bottom: 20px; }
+  .sp-hero-name { font-family: var(--garamond); font-size: clamp(42px, 8vw, 68px); font-weight: 400; line-height: 1.06; letter-spacing: -0.01em; margin-bottom: 24px; }
+  .sp-hero-name em { font-style: italic; }
+  .sp-hero-desc { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--sp-muted); max-width: 500px; margin-bottom: 32px; }
+  .sp-hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sp-tag { font-size: 12px; color: var(--sp-muted); border: 0.5px solid var(--sp-rule-em); padding: 5px 14px; border-radius: 20px; letter-spacing: 0.02em; }
+
+  .sp-venture { border: 0.5px solid var(--sp-rule-em); border-radius: var(--border-radius-lg); padding: 32px; margin-bottom: 72px; position: relative; }
+  .sp-venture-badge { position: absolute; top: 20px; right: 20px; font-size: 11px; letter-spacing: 0.08em; color: var(--sp-hint); background: var(--sp-lift); padding: 4px 12px; border-radius: 12px; border: 0.5px solid var(--sp-rule); }
+  .sp-venture-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-hint); margin-bottom: 12px; }
+  .sp-venture-title { font-family: var(--garamond); font-size: 28px; font-weight: 400; margin-bottom: 12px; }
+  .sp-venture-desc { font-size: 14px; line-height: 1.8; color: var(--sp-muted); max-width: 500px; }
+
+  .sp-section { margin-bottom: 72px; }
+  .sp-section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .sp-section-title { font-family: var(--garamond); font-size: 26px; font-weight: 400; }
+  .sp-section-rule { flex: 1; height: 0.5px; background: var(--sp-rule); }
+
+  .sp-timeline { display: flex; flex-direction: column; }
+  .sp-entry { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 24px 0; border-bottom: 0.5px solid var(--sp-rule); }
+  .sp-entry:last-child { border-bottom: none; }
+  .sp-entry-meta { padding-top: 2px; }
+  .sp-entry-date { font-size: 12px; color: var(--sp-hint); letter-spacing: 0.02em; line-height: 1.6; }
+  .sp-entry-company { font-size: 12px; font-weight: 500; color: var(--sp-muted); margin-top: 4px; }
+  .sp-entry-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .sp-entry-desc { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--sp-muted); }
+  .sp-entry-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .sp-pill { font-size: 11px; color: var(--sp-hint); background: var(--sp-lift); padding: 3px 10px; border-radius: 12px; }
+
+  .sp-projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .sp-project { background: var(--sp-lift); border-radius: var(--border-radius-lg); padding: 24px; }
+  .sp-project-icon { font-size: 20px; color: var(--sp-muted); margin-bottom: 16px; }
+  .sp-project-title { font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; }
+  .sp-project-desc { font-size: 13px; color: var(--sp-muted); line-height: 1.65; }
+  .sp-project-result { font-size: 12px; font-weight: 500; color: var(--sp-ink); margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--sp-rule); }
+
+  .sp-certs { display: flex; flex-direction: column; }
+  .sp-cert { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 0.5px solid var(--sp-rule); }
+  .sp-cert:last-child { border-bottom: none; }
+  .sp-cert-name { font-size: 14px; }
+  .sp-cert-org { font-size: 12px; color: var(--sp-muted); margin-top: 2px; }
+  .sp-cert-status { font-size: 11px; color: var(--sp-muted); background: var(--sp-lift); padding: 4px 12px; border-radius: 12px; white-space: nowrap; margin-left: 16px; flex-shrink: 0; }
+
+  .sp-skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .sp-skill-group-title { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sp-hint); margin-bottom: 12px; }
+  .sp-skill-list { font-size: 14px; color: var(--sp-muted); line-height: 2.1; }
+
+  .sp-contact { background: var(--sp-lift); border-radius: var(--border-radius-lg); padding: 40px; text-align: center; }
+  .sp-contact-heading { font-family: var(--garamond); font-size: 32px; font-weight: 400; margin-bottom: 10px; }
+  .sp-contact-sub { font-size: 14px; color: var(--sp-muted); margin-bottom: 28px; }
+  .sp-contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .sp-contact-link { font-size: 13px; font-weight: 500; color: var(--sp-ink); text-decoration: none; border: 0.5px solid var(--sp-rule-em); padding: 10px 22px; border-radius: var(--border-radius-md); display: inline-flex; align-items: center; gap: 8px; }
+  .sp-contact-link:hover { background: var(--sp-surface); }
+
+  @media (max-width: 600px) {
+    .sp-entry { grid-template-columns: 1fr; gap: 4px; }
+    .sp-projects-grid { grid-template-columns: 1fr; }
+    .sp-skills-grid { grid-template-columns: 1fr; }
+  }
+
+  body{
+    background:
+      radial-gradient(circle at top left, rgba(0,0,0,.03), transparent 35%),
+      radial-gradient(circle at top right, rgba(0,0,0,.02), transparent 30%),
+      #fafaf8;
+  }
+
+  .sp-root{
+    max-width: 980px;
+    padding-bottom:120px;
+  }
+
+  .sp-nav{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:rgba(250,250,248,.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+
+  .sp-hero{
+    padding:40px 0 20px;
+  }
+
+  .sp-hero-name{
+    font-size:clamp(58px,10vw,92px);
+    line-height:.95;
+  }
+
+  .sp-hero-desc{
+    font-size:18px;
+    max-width:650px;
+  }
+
+  .sp-tag{
+    background:white;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+  }
+
+  .sp-venture{
+    background:white;
+    border:none;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    padding:42px;
+  }
+
+  .sp-section-title{
+    font-size:34px;
+  }
+
+  .sp-entry{
+    transition:.25s ease;
+    border-bottom:1px solid rgba(0,0,0,.08);
+  }
+
+  .sp-entry:hover{
+    transform:translateX(6px);
+  }
+
+  .sp-projects-grid{
+    gap:22px;
+  }
+
+  .sp-project{
+    background:white;
+    border:1px solid rgba(0,0,0,.06);
+    box-shadow:0 12px 30px rgba(0,0,0,.05);
+    transition:.25s ease;
+  }
+
+  .sp-project:hover{
+    transform:translateY(-8px);
+    box-shadow:0 24px 50px rgba(0,0,0,.10);
+  }
+
+  .sp-certs,
+  .sp-skills-grid{
+    background:white;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.04);
+  }
+
+  .sp-contact{
+    background:white;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    border:1px solid rgba(0,0,0,.06);
+  }
+
+  .sp-contact-heading{
+    font-size:44px;
+  }
+
+  .sp-contact-link{
+    transition:.2s ease;
+  }
+
+  .sp-contact-link:hover{
+    transform:translateY(-3px);
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  .sp-section{
+    scroll-margin-top:110px;
+  }
+
+  @media (max-width:768px){
+    .sp-hero-name{
+      font-size:56px;
+    }
+  }
+
+</style>
+
+<div class="sp-root">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Personal portfolio of Sailesh Pandian — builder, operator, and aspiring founder</h2>
+
+  <nav class="sp-nav">
+    <span class="sp-nav-name">Sailesh Pandian</span>
+    <div class="sp-nav-links">
+      <a href="#venture">Venture</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="sp-hero">
+    <p class="sp-hero-eyebrow">Gurgoan, India &nbsp;·&nbsp; Always building something</p>
+    <h1 class="sp-hero-name">Curious by nature,<br><em>builder by choice.</em></h1>
+    <p class="sp-hero-desc">I'm Sailesh Pandian —  B.tech Graduate From VIT Chennai, heading to Master's Union for a general management programme in 2026. I like getting into rooms I don't fully belong in yet, learning fast, and making things work.</p>
+    <div class="sp-hero-tags">
+      <span class="sp-tag">Operations</span>
+      <span class="sp-tag">Business Analytics</span>
+      <span class="sp-tag">Entrepreneurship</span>
+      <span class="sp-tag">Supply Chain</span>
+      <span class="sp-tag">Team Building</span>
+    </div>
+  </section>
+
+  <section id="venture">
+    <div class="sp-venture">
+      <span class="sp-venture-badge">Stealth · In Progress</span>
+      <div class="sp-venture-label">Currently Building</div>
+      <div class="sp-venture-title">Supply Chain &amp; Vendor Business</div>
+      <div class="sp-venture-desc">Working on a lean, ground-up business focused on supply chain operations and vendor management. Still early — but the conviction is there. Rooted in real experience with procurement, reconciliation, and process design.</div>
+    </div>
+  </section>
+
+  <section class="sp-section" id="experience">
+    <div class="sp-section-header">
+      <h2 class="sp-section-title">Experience</h2>
+      <div class="sp-section-rule"></div>
+    </div>
+    <div class="sp-timeline">
+      <div class="sp-entry">
+        <div class="sp-entry-meta">
+          <div class="sp-entry-date">Sep – Dec 2025</div>
+          <div class="sp-entry-company">Abhyaz, Chennai</div>
+        </div>
+        <div>
+          <div class="sp-entry-title">Finance Executive Intern</div>
+          <div class="sp-entry-desc">Handled receivables, payables, and client reconciliations day-to-day using Zoho Books and Zoho Inventory. Automated MIS and compliance reports to improve cash-flow visibility. Supported GST filings (GSTR-1, GSTR-3B, GSTR-4) and fed into management decision-making.</div>
+          <div class="sp-entry-pills"><span class="sp-pill">Zoho Books</span><span class="sp-pill">GST Compliance</span><span class="sp-pill">MIS Reporting</span><span class="sp-pill">Reconciliation</span></div>
+        </div>
+      </div>
+      <div class="sp-entry">
+        <div class="sp-entry-meta">
+          <div class="sp-entry-date">Jun – Jul 2024</div>
+          <div class="sp-entry-company">ZF Wind Power, Coimbatore</div>
+        </div>
+        <div>
+          <div class="sp-entry-title">Service Engineer Intern</div>
+          <div class="sp-entry-desc">Spotted and fixed an assembly bottleneck in terminal box wiring — designed standardised wire-length specs that cut per-unit assembly time by around 30 minutes. Monitored CNC machine workflows via LabVIEW to track process accuracy.</div>
+          <div class="sp-entry-pills"><span class="sp-pill">LabVIEW</span><span class="sp-pill">CNC Monitoring</span><span class="sp-pill">Process Design</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-section">
+    <div class="sp-section-header">
+      <h2 class="sp-section-title">College &amp; Leadership</h2>
+      <div class="sp-section-rule"></div>
+    </div>
+    <div class="sp-timeline">
+      <div class="sp-entry">
+        <div class="sp-entry-meta">
+          <div class="sp-entry-date">Aug – Oct 2023</div>
+          <div class="sp-entry-company">TechnoVIT</div>
+        </div>
+        <div>
+          <div class="sp-entry-title">Merchandise Lead — TechnoVIT Fest</div>
+          <div class="sp-entry-desc">Ran the full merchandise and stall operation for VIT's flagship technical festival — inventory, vendors, and a 10+ person volunteer team across 3,000+ footfall over multiple days. Sold out completely. Won Best Merchant Sale of the Year.</div>
+          <div class="sp-entry-pills"><span class="sp-pill">Vendor Management</span><span class="sp-pill">Team Lead</span><span class="sp-pill">Event Ops</span></div>
+        </div>
+      </div>
+      <div class="sp-entry">
+        <div class="sp-entry-meta">
+          <div class="sp-entry-date">May 2023 – Nov 2024</div>
+          <div class="sp-entry-company">Enactus VIT Chennai</div>
+        </div>
+        <div>
+          <div class="sp-entry-title">Operations &amp; Workforce — Enactus</div>
+          <div class="sp-entry-desc">Helped run three student-led social ventures end-to-end — team coordination, pricing, digital sales, and keeping both the mission and the money working together. Went to Enactus India National Exposition at IIT Delhi; team won "Most Voted" and "Embarking Entrepreneurial Leadership."</div>
+          <div class="sp-entry-pills"><span class="sp-pill">Student Ventures</span><span class="sp-pill">Digital Sales</span><span class="sp-pill">IIT Delhi</span></div>
+        </div>
+      </div>
+      <div class="sp-entry">
+        <div class="sp-entry-meta">
+          <div class="sp-entry-date">Jan 2024 – Jan 2025</div>
+          <div class="sp-entry-company">Ignition Student Team</div>
+        </div>
+        <div>
+          <div class="sp-entry-title">Avionics Engineer</div>
+          <div class="sp-entry-desc">Handled GPS/GNSS telemetry integration and presented the work to both technical and business evaluators. Got good at bridging conversations between engineers and non-engineers — a skill that's followed me since.</div>
+          <div class="sp-entry-pills"><span class="sp-pill">GPS/GNSS</span><span class="sp-pill">Telemetry</span><span class="sp-pill">Cross-functional</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-section" id="projects">
+    <div class="sp-section-header">
+      <h2 class="sp-section-title">Projects &amp; Competitions</h2>
+      <div class="sp-section-rule"></div>
+    </div>
+    <div class="sp-projects-grid">
+      <div class="sp-project">
+        <div class="sp-project-icon"><i class="ti ti-chart-dots" aria-hidden="true"></i></div>
+        <div class="sp-project-title">Customer Transaction Analytics — Banking</div>
+        <div class="sp-project-desc">Built an end-to-end analytics pipeline with anomaly detection and data governance. Implemented XGBoost, Random Forest, and Logistic Regression for cross-sell targeting.</div>
+        <div class="sp-project-result">Academic Project · VIT Chennai</div>
+      </div>
+      <div class="sp-project">
+        <div class="sp-project-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+        <div class="sp-project-title">India–EFTA TEPA Macroeconomic Research</div>
+        <div class="sp-project-desc">Analysed the sectoral and investment impact of the USD 100B India–EFTA trade deal across renewable energy, pharma, and financial services. Modelled GDP and FDI multiplier effects.</div>
+        <div class="sp-project-result">Research · VIT Chennai</div>
+      </div>
+      <div class="sp-project">
+        <div class="sp-project-icon"><i class="ti ti-trophy" aria-hidden="true"></i></div>
+        <div class="sp-project-title">Danfoss Innovators Award 2024–25</div>
+        <div class="sp-project-desc">Made it to the top 4 nationally — competing against engineering and business teams from across the country.</div>
+        <div class="sp-project-result">Top 4 Nationally</div>
+      </div>
+      <div class="sp-project">
+        <div class="sp-project-icon"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+        <div class="sp-project-title">Content Creator — YouTube</div>
+        <div class="sp-project-desc">Started creating on YouTube in late 2024. A self-driven channel that keeps the thinking sharp and the communication sharper.</div>
+        <div class="sp-project-result">Ongoing · Since Dec 2024</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-section">
+    <div class="sp-section-header">
+      <h2 class="sp-section-title">Certifications</h2>
+      <div class="sp-section-rule"></div>
+    </div>
+    <div class="sp-certs">
+      <div class="sp-cert">
+        <div><div class="sp-cert-name">FMVA® — Financial Modeling &amp; Valuation Analyst</div><div class="sp-cert-org">Corporate Finance Institute (CFI)</div></div>
+        <span class="sp-cert-status">In Progress</span>
+      </div>
+      <div class="sp-cert">
+        <div><div class="sp-cert-name">FPAP® — Financial Planning &amp; Analysis Professional</div><div class="sp-cert-org">Corporate Finance Institute (CFI)</div></div>
+        <span class="sp-cert-status">In Progress</span>
+      </div>
+      <div class="sp-cert">
+        <div><div class="sp-cert-name">TCS National Qualifier Test — BFSI</div><div class="sp-cert-org">Tata Consultancy Services</div></div>
+        <span class="sp-cert-status">Score: 90.12%</span>
+      </div>
+      <div class="sp-cert">
+        <div><div class="sp-cert-name">Trade &amp; Risk Management Certificate</div><div class="sp-cert-org">CME Group</div></div>
+        <span class="sp-cert-status">Completed</span>
+      </div>
+      <div class="sp-cert">
+        <div><div class="sp-cert-name">Goldman Sachs Risk Job Simulation</div><div class="sp-cert-org">Forage</div></div>
+        <span class="sp-cert-status">Completed</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sp-contact">
+      <div class="sp-contact-heading">Say hello.</div>
+      <p class="sp-contact-sub">Always up for a good conversation — whether it's about business, operations, or a half-formed idea.</p>
+      <div class="sp-contact-links">
+        <a class="sp-contact-link" href="mailto:saileshpandian27@gmail.com"><i class="ti ti-mail" aria-hidden="true"></i> saileshpandian27@gmail.com</a>
+        <a class="sp-contact-link" href="https://www.linkedin.com/in/sailesh-pandian-ramalingam-9a9701255"><i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn</a>
+        <a class="sp-contact-link" href="tel:+919486404296"><i class="ti ti-phone" aria-hidden="true"></i> +91 94864 04296</a>
+      </div>
+    </div>
+  </section>
+</div>
